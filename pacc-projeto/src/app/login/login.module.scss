@@ -1,0 +1,88 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.mainContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: $sidebar-width;
+  background-color: $pacc-blue-dark;
+  color: $pacc-white;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.logoArea {
+  flex: 1;
+  background-color: $pacc-white;
+  @include flex-center;
+
+  @include mobile {
+    display: none; // Esconde o logo no celular para focar no login
+  }
+}
+
+.loginCard {
+  width: 100%;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  p {
+    color: $pacc-gray;
+    margin-bottom: 2rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.9rem;
+      color: $pacc-gray;
+    }
+
+    input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.8rem;
+      border-radius: $border-radius;
+      color: white;
+      outline: none;
+
+      &:focus {
+        border-color: $pacc-blue-main;
+      }
+    }
+  }
+}
+
+.btnPrimary {
+  background-color: $pacc-blue-main;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  border-radius: $border-radius;
+  font-weight: bold;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: lighten($pacc-blue-main, 10%);
+  }
+}

@@ -1,4 +1,6 @@
-$pacc-blue-dark: #0f172a;
+//Brand color do Pacc
+$pacc-dark: #000000;
+$pacc-blue-dark: #051844;
 $pacc-blue-main: #0047ab;
 $pacc-white: #ffffff;
 $pacc-gray: #64748b;
@@ -10,3 +12,9 @@ $pacc-danger: #ef4444;
 $bg-sidebar: $pacc-blue-dark;
 $btn-primary: $pacc-blue-main;
 $text-main: $pacc-white;
+
+// Layout
+
+$sidebar-width: 400px;
+$border-radius: 8px;
+$transition: 0.3s ease;
