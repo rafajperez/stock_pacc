@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
@@ -83,6 +84,6 @@
   transition: $transition;
 
   &:hover {
-    background-color: lighten($pacc-blue-main, 10%);
+    background-color: color.adjust($pacc-blue-main, $lightness: 10%);
   }
 }

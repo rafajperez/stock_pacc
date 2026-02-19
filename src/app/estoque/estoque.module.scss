@@ -1,0 +1,90 @@
+.pageWrapper {
+  min-height: 100vh;
+  background-color: #f4f7f6;
+}
+
+.content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+  }
+}
+
+.btnAdd {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: color-adjust(
+      #27ae60,
+      -10%
+    ); // Usando a lógica de ajuste que vimos antes
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  background-color: #004a99;
+  box-shadow: 0 4px 6px #ffffff;
+  h1 {
+    color: #ffffff;
+    font-size: 1.6rem;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.btnEntrada,
+.btnSaida {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3); // Bordinha sutil branca
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+.btnEntrada {
+  background-color: #1f42e2;
+
+  &:hover {
+    background-color: #2556f7;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.btnSaida {
+  background-color: #ee3939;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #e62222;
+  }
+}
