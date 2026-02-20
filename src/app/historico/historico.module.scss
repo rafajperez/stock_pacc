@@ -1,0 +1,131 @@
+@use "../../styles/variables" as *;
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    position: relative;
+
+    .leftSide {
+      display: flex;
+      align-items: center;
+      flex: 1;
+
+      .btnVoltar {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        color: $pacc-blue-main;
+        font-weight: bold;
+        transition: color 0.2s;
+        z-index: 2;
+        font-size: 20px;
+
+        &:hover {
+          color: $pacc-blue-dark;
+        }
+
+        svg {
+          font-size: 20px;
+        }
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+
+        h1 {
+          color: $pacc-blue-main;
+          font-size: 1.6rem;
+          margin: 0;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .btnImprimir {
+      background-color: $pacc-white;
+      color: $pacc-blue-main;
+      border: 1px solid $pacc-blue-main;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: $pacc-blue-main;
+        color: $pacc-white;
+      }
+    }
+  }
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #b1b1b1;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th {
+    background-color: #cedaf7;
+    color: $pacc-blue-main;
+    padding: 16px;
+    font-weight: 700;
+    border-bottom: 2px solid #edf2f7;
+  }
+
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #cccccc;
+    color: #4a5568;
+    font-size: 0.95rem;
+  }
+
+  .itemName {
+    font-weight: 600;
+    color: $pacc-dark;
+    text-transform: capitalize;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+}
+
+@media print {
+  .btnImprimir,
+  .btnVoltar {
+    display: none !important;
+  }
+  .container {
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+}

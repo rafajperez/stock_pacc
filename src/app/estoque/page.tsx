@@ -10,10 +10,11 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
-
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Link from "next/link";
+import HistoryIcon from "@mui/icons-material/History";
 
 export default function EstoquePage() {
   const router = useRouter();
@@ -83,7 +84,7 @@ export default function EstoquePage() {
       ),
       {
         duration: 6000,
-        position: "top-center", // Aparece no meio do topo
+        position: "top-center",
         style: {
           minWidth: "300px",
           borderRadius: "12px",
@@ -126,7 +127,10 @@ export default function EstoquePage() {
                 Registrar Saída
               </button>
             </div>
-
+            <Link href="/historico" className={styles.btnLink}>
+              <HistoryIcon fontSize="small" />
+              Histórico
+            </Link>
             <button onClick={handleLogout} className={styles.btnLogout}>
               <LogoutIcon fontSize="small" />
               Sair

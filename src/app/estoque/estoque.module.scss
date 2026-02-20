@@ -50,7 +50,6 @@
     justify-content: center;
     gap: 8px;
     min-width: 170px;
-
     padding: 10px 20px;
     border-radius: 6px;
     font-weight: 600;
@@ -78,24 +77,47 @@
     }
   }
 
+  // AQUI ESTÁ A CORREÇÃO DO LINK DO HISTÓRICO
+  .btnLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $pacc-white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: $pacc-white;
+    }
+
+    svg {
+      font-size: 20px;
+      opacity: 0.9;
+    }
+  }
+
   .btnLogout {
     display: flex;
     align-items: center;
     gap: 8px;
     background-color: $pacc-white;
     color: $pacc-blue-main;
-    border: 1px solid $pacc-dark;
+    border: 1px solid transparent; // Mudei para transparent para ficar mais limpo
     padding: 8px 16px;
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
 
     &:hover {
-      background-color: rgba($pacc-bt-add, 0.1);
-      color: $pacc-white;
-      border: 1px solid $pacc-white;
+      background-color: rgba(255, 255, 255, 0.9);
       transform: translateY(-1px);
-      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   }
 }
