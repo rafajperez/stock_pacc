@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  // Lista de e-mails permitidos (Front-end check)
+
   const ALLOWED_EMAILS = [
     "rafaperez_dev@hotmail.com",
     "gerente@pacc.org.br",
@@ -20,7 +20,7 @@ export default function LoginPage() {
   ];
   const handleLogin = async () => {
     setError("");
-    // 1. Validação básica antes de chamar o Firebase
+
     if (!ALLOWED_EMAILS.includes(email.toLowerCase())) {
       setError("Acesso negado: Este e-mail não está autorizado.");
       return;
@@ -80,10 +80,13 @@ export default function LoginPage() {
       </aside>
 
       <section className={styles.logoArea}>
-        <div className={styles.logoWrapper}>
-          <div className={styles.placeholderLogo}>PACC</div>
-          <h2>Projeto Amigos Contra o Câncer</h2>
-        </div>
+        <Image
+          src="/Logo-PACC-NOVA.png"
+          alt="Logo PACC"
+          width={400}
+          height={400}
+          priority
+        />
       </section>
     </main>
   );

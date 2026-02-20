@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { ItemEstoque } from "@/types/Estoque";
 import styles from "./ModalSaida.module.scss";
+import toast from "react-hot-toast"; // Importando o toast
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,10 +25,9 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
   const [itensNoEstoque, setItensNoEstoque] = useState<ItemEstoque[]>([]);
   const [itemId, setItemId] = useState("");
   const [quantidadeSaida, setQuantidadeSaida] = useState(1);
-  const [pacienteId, setPacienteId] = useState(""); // Campo genérico para LGPD
+  const [pacienteId, setPacienteId] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Carrega os itens disponíveis para saída
   useEffect(() => {
     const q = query(collection(db, "estoque"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -35,6 +35,7 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
         id: doc.id,
         ...doc.data(),
       })) as ItemEstoque[];
+      // Filtra apenas o que tem estoque para não poluir o select
       setItensNoEstoque(dados.filter((item) => item.quantidade > 0));
     });
     return () => unsubscribe();
@@ -49,19 +50,20 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
     const itemSelecionado = itensNoEstoque.find((i) => i.id === itemId);
 
     if (!itemSelecionado || itemSelecionado.quantidade < quantidadeSaida) {
-      alert("Quantidade insuficiente no estoque!");
+      toast.error("Quantidade insuficiente no estoque!"); // Toast em vez de alert
       setLoading(false);
       return;
     }
 
     try {
-      // 1. Diminui a quantidade no estoque
       const itemRef = doc(db, "estoque", itemId);
+
+      // Atualiza o estoque subtraindo
       await updateDoc(itemRef, {
         quantidade: increment(-Number(quantidadeSaida)),
       });
 
-      // 2. Registra a saída no histórico (Sem dados sensíveis, apenas o ID fornecido)
+      // Registra no histórico para auditoria da PACC
       await addDoc(collection(db, "historico_saidas"), {
         pacienteReferencia: pacienteId,
         itemNome: itemSelecionado.nome,
@@ -69,12 +71,13 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
         dataSaida: serverTimestamp(),
       });
 
-      alert("Baixa realizada com sucesso!");
+      toast.success("Baixa realizada com sucesso!"); // Toast de sucesso
       setPacienteId("");
+      setItemId(""); // Limpa o item selecionado
       onClose();
     } catch (error) {
       console.error(error);
-      alert("Erro ao dar baixa.");
+      toast.error("Erro ao dar baixa no sistema.");
     } finally {
       setLoading(false);
     }
@@ -83,7 +86,7 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>Dar Baixa em Item (Saída)</h2>
+        <h2>Registrar Saída de Item</h2>
         <form onSubmit={handleSaida}>
           <div className={styles.inputGroup}>
             <label>ID / Prontuário do Paciente</label>
@@ -91,13 +94,13 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
               type="text"
               value={pacienteId}
               onChange={(e) => setPacienteId(e.target.value)}
-              placeholder="Digite o código interno do paciente"
+              placeholder="Digite o código do paciente"
               required
             />
           </div>
 
           <div className={styles.inputGroup}>
-            <label>Selecionar Item do Estoque</label>
+            <label>Item para Saída</label>
             <select
               value={itemId}
               onChange={(e) => setItemId(e.target.value)}
@@ -113,7 +116,7 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
           </div>
 
           <div className={styles.inputGroup}>
-            <label>Quantidade de Saída</label>
+            <label>Quantidade</label>
             <input
               type="number"
               value={quantidadeSaida}
@@ -136,7 +139,7 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
               className={styles.btnConfirm}
               disabled={loading}
             >
-              {loading ? "Processando..." : "Confirmar Entrega"}
+              {loading ? "Processando..." : "Confirmar Saída"}
             </button>
           </div>
         </form>

@@ -1,6 +1,8 @@
+@use "@/styles/variables" as *;
+
 .pageWrapper {
   min-height: 100vh;
-  background-color: #f4f7f6;
+  background-color: $pacc-white;
 }
 
 .content {
@@ -9,82 +11,91 @@
   padding: 2rem;
 }
 
-.topSection {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-
-  h2 {
-    color: #2c3e50;
-    font-size: 1.8rem;
-  }
-}
-
-.btnAdd {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background-color: color-adjust(
-      #27ae60,
-      -10%
-    ); // Usando a lógica de ajuste que vimos antes
-  }
-}
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
-  background-color: #004a99;
-  box-shadow: 0 4px 6px #ffffff;
-  h1 {
-    color: #ffffff;
-    font-size: 1.6rem;
-    margin: 0;
+  padding: 1rem 2rem;
+  background-color: $pacc-blue-main;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    h1 {
+      color: $pacc-white;
+      font-size: 1.6rem;
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .headerActions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .buttonGroup {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btnEntrada,
+  .btnSaida {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 170px;
+
+    padding: 10px 20px;
+    border-radius: 6px;
     font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: $pacc-white;
   }
-}
 
-.buttonGroup {
-  display: flex;
-  gap: 1rem;
-}
-
-.btnEntrada,
-.btnSaida {
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.3); // Bordinha sutil branca
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: white;
-}
-.btnEntrada {
-  background-color: #1f42e2;
-
-  &:hover {
-    background-color: #2556f7;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  .btnEntrada {
+    background-color: $pacc-bt-add;
+    &:hover {
+      background-color: $pacc-bt-add-hv;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
   }
-}
 
-.btnSaida {
-  background-color: #ee3939;
+  .btnSaida {
+    background-color: $pacc-danger-hv;
+    &:hover {
+      background-color: $pacc-btn-hv;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: #e62222;
+  .btnLogout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: $pacc-white;
+    color: $pacc-blue-main;
+    border: 1px solid $pacc-dark;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($pacc-bt-add, 0.1);
+      color: $pacc-white;
+      border: 1px solid $pacc-white;
+      transform: translateY(-1px);
+      transition: all 0.2s ease;
+    }
   }
 }

@@ -1,9 +1,11 @@
+@use "../styles/variables" as *;
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #f8f9fa;
+  background-color: $pacc-bc-td;
   border-bottom: 2px solid #eee;
 
   .logo {
@@ -25,7 +27,7 @@
   }
 
   .btnLogout {
-    background-color: #e74c3c;
+    background-color: $pacc-rw;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -35,7 +37,7 @@
     transition: background 0.2s;
 
     &:hover {
-      background-color: #c0392b;
+      background-color: $pacc-danger;
     }
   }
 }

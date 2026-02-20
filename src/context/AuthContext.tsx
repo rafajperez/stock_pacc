@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(currentUser);
       } else {
         setUser(null);
-        // Opcional: deslogar se o e-mail não estiver na lista
       }
       setLoading(false);
     });

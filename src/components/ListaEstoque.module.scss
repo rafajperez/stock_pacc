@@ -1,99 +1,116 @@
+@use "../styles/variables" as *;
+
 .tableWrapper {
   width: 100%;
   overflow-x: auto;
-  background-color: #ffffff;
-  border: 2px solid #004a99; // Borda externa mais forte com o azul do logo
-  border-radius: 8px;
+  background-color: $pacc-white;
+  border-radius: 4px;
   margin-top: 1rem;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse; // Fundamental para as bordas se unirem como no Excel
+  border-collapse: collapse;
 
   thead {
     tr {
-      background-color: #f0f7ff;
+      background-color: $pacc-tr;
     }
-
     th {
       padding: 12px;
-      color: #004a99;
+      color: $pacc-blue-main;
       font-weight: 700;
       text-align: left;
-      border: 1px solid #b3cde3;
-      border-bottom: 2px solid #004a99;
+      border: 1px solid $pacc-th;
+      border-bottom: 2px solid $pacc-blue-main;
     }
   }
 
   tbody {
     tr {
-      background-color: #ffffff;
+      background-color: $pacc-white;
       transition: background 0.2s;
 
       &:hover {
-        background-color: #f1f8ff;
+        background-color: $pacc-bg-hover;
       }
 
       td {
         padding: 10px 12px;
-        color: #333;
-        border: 1px solid #d1e1f0;
+        color: $pacc-dark;
+        border: 1px solid $pacc-bg-td;
         font-size: 0.95rem;
       }
-    }
 
-    .rowWarning {
-      background-color: #d1e9ff !important;
+      &.rowVencido {
+        background-color: $pacc-danger !important;
+        border-left: 5px solid $pacc-danger-hv;
+        &:hover {
+          background-color: $pacc-rw-b !important;
+        }
+        td {
+          color: $pacc-danger-hv !important;
+          border: 1px solid $pacc-rw-b;
+          font-weight: 700;
+        }
+      }
 
-      td {
-        border-color: #a5c7e9;
-        color: #004a99;
-        font-weight: 600;
+      &.rowUrgente {
+        background-color: #fff3e0 !important;
+        border-left: 5px solid $pacc-rw-bl;
+        &:hover {
+          background-color: #ffe0b2 !important;
+        }
+        td {
+          color: $pacc-rw !important;
+          border: 1px solid #ffcc80;
+          font-weight: 700;
+        }
+      }
+
+      &.rowAtencao {
+        background-color: #fffde7 !important;
+        border-left: 5px solid #fbc02d;
+        &:hover {
+          background-color: #fff9c4 !important;
+        }
+        td {
+          color: #f57f17 !important;
+          border: 1px solid #fff59d;
+          font-weight: 700;
+        }
+      }
+
+      &.rowNormal {
+        background-color: $pacc-tr !important;
+        border-left: 5px solid $pacc-blue-main;
+        &:hover {
+          background-color: $pacc-bg-hover !important;
+        }
+        td {
+          color: $pacc-blue-main;
+          border: 1px solid $pacc-bg-td;
+        }
       }
     }
   }
 }
+
 .btnDelete {
-  background: #ffffff;
+  background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
   border-radius: 5px;
+  color: $pacc-blue-main;
   transition: all 0.2s ease;
-  color: #004a99;
-  filter: grayscale(90%) sepia(100%) hue-rotate(180deg) saturate(200%);
 
   &:hover {
-    transform: scale(1.2);
-    background-color: #f0f7ff;
-    filter: none;
-  }
-}
-.rowVencido {
-  background-color: #ffebee !important;
-  border-left: 5px solid #d32f2f;
-  td {
-    color: #c62828;
-    border: 1px solid #ffcdd2;
-  }
-}
-
-.rowUrgente {
-  background-color: #fff3e0 !important;
-  border-left: 5px solid #ef6c00;
-  td {
-    color: #e65100;
-    border: 1px solid #ffe0b2;
-  }
-}
-
-.rowAtencao {
-  background-color: #e3f2fd !important;
-  border-left: 5px solid #004a99;
-  td {
-    color: #004a99;
-    border: 1px solid #bbdefb;
+    transform: scale(1.1);
+    background-color: rgba($pacc-dark, 0.05);
+    color: $pacc-danger-hv;
   }
 }

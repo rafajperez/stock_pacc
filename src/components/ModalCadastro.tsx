@@ -55,7 +55,6 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
     e.preventDefault();
     setLoading(true);
 
-    // Lógica para montar o nome final
     let nomeFinal = nomeBase;
 
     if (nomeBase.includes("Fralda")) {
@@ -95,7 +94,6 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
         alert("Novo item cadastrado!");
       }
 
-      // Reseta estados
       setNomeBase(ITENS_PADRAO[0]);
       setNomePersonalizado("");
       setQuantidade(1);
@@ -129,7 +127,6 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
             </select>
           </div>
 
-          {/* Condicional para Fraldas */}
           {nomeBase.includes("Fralda") && (
             <div className={styles.inputGroup}>
               <label>Tamanho da Fralda</label>
@@ -146,7 +143,6 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
             </div>
           )}
 
-          {/* Condicional para Outros */}
           {nomeBase === "Outros" && (
             <div className={styles.inputGroup}>
               <label>Nome do Item Específico</label>

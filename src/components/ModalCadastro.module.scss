@@ -1,3 +1,4 @@
+@use "@/styles/variables" as *;
 @use "sass:color";
 
 .overlay {
@@ -14,16 +15,16 @@
 }
 
 .modal {
-  background: white;
+  background: $pacc-white;
   padding: 2rem;
   border-radius: 8px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: $pacc-dark;
 
   h2 {
     margin-bottom: 1.5rem;
-    color: #333;
+    color: $pacc-btn-darkgray;
   }
 
   .inputGroup {
@@ -37,7 +38,7 @@
     select {
       width: 100%;
       padding: 0.8rem;
-      border: 1px solid #dddddd;
+      border: 1px solid $pacc-btn-gray;
       border-radius: 4px;
     }
   }
@@ -56,14 +57,16 @@
       font-weight: bold;
     }
     .table td:first-child {
-      text-transform: capitalize; // Deixa a primeira letra de cada palavra maiúscula
+      text-transform: capitalize;
     }
     .btnCancel {
-      background: #eee;
+      background: $pacc-btn-gray;
+      border: 1px solid $pacc-dark;
     }
     .btnSave {
-      background: #2ecc71;
-      color: white;
+      background: $pacc-blue-main;
+      color: $pacc-white;
+      border: 1px solid $pacc-dark;
     }
   }
 }

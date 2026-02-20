@@ -1,19 +1,31 @@
 //Brand color do Pacc
 $pacc-dark: #000000;
 $pacc-blue-dark: #051844;
-$pacc-blue-main: #0047ab;
+$pacc-btn-darkgray: #333;
+$pacc-blue-main: #004a99;
+$pacc-bt-add: #607cf8;
+$pacc-bt-add-hv: #2556f7;
+$pacc-sucess: #28a745;
+$pacc-danger: #fce1e1;
+$pacc-danger-hv: #d32f2f;
+$pacc-btn-hv: #e62222;
+$pacc-rw-bl: #ef6c00;
+$pacc-rw: #e65100;
+$pacc-btn-gray: #eeeeee;
 $pacc-white: #ffffff;
+$pacc-tr: #f0f7ff;
+$pacc-bg-hover: #f1f8ff;
+$pacc-bg-td: #d1e1f0;
+$pacc-rw-b: #ffcdd2;
+$pacc-rw-u: #f8e8cf;
+$pacc-th: #b3cde3;
+$pacc-bc-td: #a5c7e9;
+$pacc-bg-rw: #d1e9ff;
 $pacc-gray: #64748b;
-$pacc-success: #22c55e;
-$pacc-danger: #ef4444;
-
-//tokens de design
 
 $bg-sidebar: $pacc-blue-dark;
 $btn-primary: $pacc-blue-main;
 $text-main: $pacc-white;
-
-// Layout
 
 $sidebar-width: 400px;
 $border-radius: 8px;

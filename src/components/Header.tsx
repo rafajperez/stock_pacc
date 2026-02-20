@@ -8,7 +8,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push("/login"); // Redireciona para a tela que você já criou
+      router.push("/login");
     } catch (error) {
       console.error("Erro ao sair:", error);
     }
