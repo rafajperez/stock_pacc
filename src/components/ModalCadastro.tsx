@@ -13,6 +13,7 @@ import {
   doc,
   increment,
 } from "firebase/firestore";
+import toast from "react-hot-toast";
 import styles from "./ModalCadastro.module.scss";
 
 interface ModalProps {
@@ -82,7 +83,9 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
           quantidade: increment(Number(quantidade)),
           dataAtualizacao: serverTimestamp(),
         });
-        alert("Quantidade somada ao lote existente!");
+
+        // TROCADO ALERT POR TOAST
+        toast.success("Quantidade somada ao lote existente!");
       } else {
         await addDoc(collection(db, "estoque"), {
           nome: nomeLimpo,
@@ -91,9 +94,12 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
           dataValidade,
           dataCriacao: serverTimestamp(),
         });
-        alert("Novo item cadastrado!");
+
+        // TROCADO ALERT POR TOAST
+        toast.success("Novo item cadastrado com sucesso!");
       }
 
+      // Reseta os estados
       setNomeBase(ITENS_PADRAO[0]);
       setNomePersonalizado("");
       setQuantidade(1);
@@ -101,7 +107,8 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
       onClose();
     } catch (error) {
       console.error(error);
-      alert("Erro ao salvar.");
+      // TROCADO ALERT POR TOAST
+      toast.error("Erro ao salvar no banco de dados.");
     } finally {
       setLoading(false);
     }

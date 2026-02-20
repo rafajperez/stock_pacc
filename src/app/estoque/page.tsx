@@ -23,37 +23,76 @@ export default function EstoquePage() {
   const handleLogout = () => {
     toast(
       (t) => (
-        <span>
-          Deseja realmente sair?
-          <button
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-                await signOut(auth);
-                router.push("/login");
-                toast.success("Até logo!");
-              } catch (error) {
-                toast.error("Erro ao sair");
-              }
-            }}
-            style={{
-              marginLeft: "10px",
-              background: "#d32f2f",
-              color: "#fff",
-              border: "none",
-              padding: "5px 10px",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Sair
-          </button>
-        </span>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "12px",
+            padding: "8px",
+          }}
+        >
+          <span style={{ fontSize: "15px", fontWeight: "500", color: "#333" }}>
+            Deseja realmente sair do sistema?
+          </span>
+
+          <div style={{ display: "flex", gap: "15px" }}>
+            {" "}
+            {/* Espaço entre Sim e Não */}
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  await signOut(auth);
+                  router.push("/login");
+                  toast.success("Até logo!");
+                } catch (error) {
+                  toast.error("Erro ao sair");
+                }
+              }}
+              style={{
+                background: "#d32f2f", // Vermelho PACC
+                color: "#fff",
+                border: "none",
+                padding: "8px 20px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "600",
+                fontSize: "14px",
+              }}
+            >
+              Sim, Sair
+            </button>
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              style={{
+                background: "#e0e0e0", // Cinza suave
+                color: "#444",
+                border: "none",
+                padding: "8px 20px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "600",
+                fontSize: "14px",
+              }}
+            >
+              Não
+            </button>
+          </div>
+        </div>
       ),
-      { duration: 5000 },
+      {
+        duration: 6000,
+        position: "top-center", // Aparece no meio do topo
+        style: {
+          minWidth: "300px",
+          borderRadius: "12px",
+          background: "#fff",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+        },
+      },
     );
   };
-
   return (
     <main className={styles.pageWrapper}>
       <div className={styles.container}>
