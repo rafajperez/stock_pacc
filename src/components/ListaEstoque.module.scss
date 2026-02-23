@@ -82,13 +82,14 @@
       }
 
       &.rowNormal {
-        background-color: $pacc-tr !important;
-        border-left: 5px solid $pacc-blue-main;
+        background-color: $pacc-row-normal !important;
+        border-left: 5px solid $pacc-sucess;
+        font-weight: 700;
         &:hover {
-          background-color: $pacc-bg-hover !important;
+          background-color: $pacc-row-normal-hv !important;
         }
         td {
-          color: $pacc-blue-main;
+          color: $pacc-row-normal-color;
           border: 1px solid $pacc-bg-td;
         }
       }
