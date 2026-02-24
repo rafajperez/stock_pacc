@@ -13,27 +13,52 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const ALLOWED_EMAILS = [
-    "rafaperez_dev@hotmail.com",
-    "gerente@pacc.org.br",
-    "secretaria@pacc.org.br",
-  ];
   const handleLogin = async () => {
     setError("");
 
-    if (!ALLOWED_EMAILS.includes(email.toLowerCase())) {
+    const allowedEmailsEnv = process.env.NEXT_PUBLIC_ALLOWED_EMAILS;
+    console.log("Variável do ENV carregada:", allowedEmailsEnv);
+
+    if (!allowedEmailsEnv) {
+      setError("Erro interno: Lista de permissões não configurada.");
+      return;
+    }
+
+    const emailsPermitidos = allowedEmailsEnv
+      .split(",")
+      .map((e) => e.trim().toLowerCase());
+    const emailDigitado = email.trim().toLowerCase();
+
+    if (!emailsPermitidos.includes(emailDigitado)) {
       setError("Acesso negado: Este e-mail não está autorizado.");
       return;
     }
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/estoque");
+      console.log("Iniciando autenticação no Firebase...");
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        emailDigitado,
+        password,
+      );
+
+      if (userCredential.user) {
+        console.log("Autenticado! Redirecionando para o estoque...");
+        window.location.href = "/estoque";
+      }
     } catch (err: any) {
-      setError("E-mail ou senha incorretos.");
-      console.error(err.code);
+      console.error("Erro no Firebase:", err.code);
+      if (
+        err.code === "auth/invalid-credential" ||
+        err.code === "auth/user-not-found"
+      ) {
+        setError("E-mail ou senha incorretos.");
+      } else {
+        setError("Erro ao conectar com o servidor. Tente novamente.");
+      }
     }
   };
+
   return (
     <main className={styles.mainContainer}>
       <aside className={styles.sidebar}>

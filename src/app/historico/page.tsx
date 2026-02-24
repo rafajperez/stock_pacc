@@ -9,6 +9,9 @@ import { ptBR } from "date-fns/locale";
 import Link from "next/link";
 import Image from "next/image";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import ConsumoChart from "@/components/ConsumoChart"; // Certifique-se de ter criado este arquivo
 
 interface HistoricoItem {
   id: string;
@@ -20,8 +23,18 @@ interface HistoricoItem {
 
 export default function HistoricoPage() {
   const [historico, setHistorico] = useState<HistoricoItem[]>([]);
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading, router]);
+
+  useEffect(() => {
+    if (!user) return;
+
     const q = query(
       collection(db, "historico_saidas"),
       orderBy("dataSaida", "desc"),
@@ -36,7 +49,42 @@ export default function HistoricoPage() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
+
+  // FUNÇÃO PARA AGRUPAR DADOS DO GRÁFICO
+  const dadosParaOGrafico = () => {
+    const somaPorItem: { [key: string]: number } = {};
+
+    historico.forEach((log) => {
+      const nome = log.itemNome.trim();
+      somaPorItem[nome] = (somaPorItem[nome] || 0) + Number(log.quantidade);
+    });
+
+    return Object.keys(somaPorItem)
+      .map((nome) => ({
+        name: nome,
+        total: somaPorItem[nome],
+      }))
+      .sort((a, b) => b.total - a.total) // Ordena do mais consumido para o menos
+      .slice(0, 6); // Pega apenas os 6 principais para não poluir
+  };
+
+  if (loading || !user) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          color: "#003366",
+          fontFamily: "sans-serif",
+        }}
+      >
+        Verificando permissões...
+      </div>
+    );
+  }
 
   return (
     <main className={styles.container}>
@@ -61,6 +109,11 @@ export default function HistoricoPage() {
           Imprimir Relatório
         </button>
       </header>
+
+      {/* ÁREA DO GRÁFICO */}
+      <section style={{ marginBottom: "2rem", padding: "0 10px" }}>
+        {historico.length > 0 && <ConsumoChart data={dadosParaOGrafico()} />}
+      </section>
 
       <div className={styles.tableWrapper}>
         <table className={styles.table}>

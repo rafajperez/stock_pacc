@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import ListaEstoque from "@/components/ListaEstoque";
 import ModalCadastro from "@/components/ModalCadastro";
 import ModalSaida from "@/components/ModalSaida";
@@ -20,6 +21,32 @@ export default function EstoquePage() {
   const router = useRouter();
   const [isCadastroOpen, setIsCadastroOpen] = useState(false);
   const [isSaidaOpen, setIsSaidaOpen] = useState(false);
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading, router]);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          fontFamily: "sans-serif",
+          color: "#003366",
+        }}
+      >
+        Carregando...
+      </div>
+    );
+  }
+
+  if (!user) return null;
 
   const handleLogout = () => {
     toast(
@@ -36,10 +63,7 @@ export default function EstoquePage() {
           <span style={{ fontSize: "15px", fontWeight: "500", color: "#333" }}>
             Deseja realmente sair do sistema?
           </span>
-
           <div style={{ display: "flex", gap: "15px" }}>
-            {" "}
-            {/* Espaço entre Sim e Não */}
             <button
               onClick={async () => {
                 toast.dismiss(t.id);
@@ -52,14 +76,13 @@ export default function EstoquePage() {
                 }
               }}
               style={{
-                background: "#d32f2f", // Vermelho PACC
+                background: "#d32f2f",
                 color: "#fff",
                 border: "none",
                 padding: "8px 20px",
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontWeight: "600",
-                fontSize: "14px",
               }}
             >
               Sim, Sair
@@ -67,14 +90,13 @@ export default function EstoquePage() {
             <button
               onClick={() => toast.dismiss(t.id)}
               style={{
-                background: "#e0e0e0", // Cinza suave
+                background: "#e0e0e0",
                 color: "#444",
                 border: "none",
                 padding: "8px 20px",
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontWeight: "600",
-                fontSize: "14px",
               }}
             >
               Não
@@ -94,6 +116,7 @@ export default function EstoquePage() {
       },
     );
   };
+
   return (
     <main className={styles.pageWrapper}>
       <div className={styles.container}>
@@ -115,25 +138,20 @@ export default function EstoquePage() {
                 className={styles.btnEntrada}
                 onClick={() => setIsCadastroOpen(true)}
               >
-                <AddCircleOutlineIcon fontSize="small" />
-                Nova Entrada
+                <AddCircleOutlineIcon fontSize="small" /> Nova Entrada
               </button>
-
               <button
                 className={styles.btnSaida}
                 onClick={() => setIsSaidaOpen(true)}
               >
-                <RemoveCircleOutlineIcon fontSize="small" />
-                Registrar Saída
+                <RemoveCircleOutlineIcon fontSize="small" /> Registrar Saída
               </button>
             </div>
             <Link href="/historico" className={styles.btnLink}>
-              <HistoryIcon fontSize="small" />
-              Histórico
+              <HistoryIcon fontSize="small" /> Histórico
             </Link>
             <button onClick={handleLogout} className={styles.btnLogout}>
-              <LogoutIcon fontSize="small" />
-              Sair
+              <LogoutIcon fontSize="small" /> Sair
             </button>
           </div>
         </header>
@@ -146,7 +164,6 @@ export default function EstoquePage() {
           isOpen={isCadastroOpen}
           onClose={() => setIsCadastroOpen(false)}
         />
-
         <ModalSaida
           isOpen={isSaidaOpen}
           onClose={() => setIsSaidaOpen(false)}

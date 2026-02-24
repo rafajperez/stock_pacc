@@ -21,7 +21,7 @@
       color: $pacc-blue-main;
       font-weight: 700;
       text-align: left;
-      border: 1px solid $pacc-th;
+      border: 2px solid $pacc-blue-main;
       border-bottom: 2px solid $pacc-blue-main;
     }
   }
@@ -45,6 +45,7 @@
       &.rowVencido {
         background-color: $pacc-danger !important;
         border-left: 5px solid $pacc-danger-hv;
+        border-right: 5px solid $pacc-danger-hv;
         &:hover {
           background-color: $pacc-rw-b !important;
         }
@@ -58,6 +59,7 @@
       &.rowUrgente {
         background-color: #fff3e0 !important;
         border-left: 5px solid $pacc-rw-bl;
+        border-right: 5px solid $pacc-rw-bl;
         &:hover {
           background-color: #ffe0b2 !important;
         }
@@ -71,6 +73,7 @@
       &.rowAtencao {
         background-color: #fffde7 !important;
         border-left: 5px solid #fbc02d;
+        border-right: 5px solid #fbc02d;
         &:hover {
           background-color: #fff9c4 !important;
         }
@@ -84,6 +87,7 @@
       &.rowNormal {
         background-color: $pacc-row-normal !important;
         border-left: 5px solid $pacc-sucess;
+        border-right: 5px solid $pacc-sucess;
         font-weight: 700;
         &:hover {
           background-color: $pacc-row-normal-hv !important;
