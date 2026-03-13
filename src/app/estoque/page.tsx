@@ -11,11 +11,14 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
+
+// ÍCONES DO MATERIAL UI
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Link from "next/link";
 import HistoryIcon from "@mui/icons-material/History";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import Link from "next/link";
 
 export default function EstoquePage() {
   const router = useRouter();
@@ -147,9 +150,16 @@ export default function EstoquePage() {
                 <RemoveCircleOutlineIcon fontSize="small" /> Registrar Saída
               </button>
             </div>
+
             <Link href="/historico" className={styles.btnLink}>
               <HistoryIcon fontSize="small" /> Histórico
             </Link>
+
+            {/* BOTÃO DE CONFIGURAÇÃO CORRIGIDO */}
+            <Link href="/config" className={styles.btnConfig}>
+              <SettingsApplicationsIcon sx={{ fontSize: 40 }} />
+            </Link>
+
             <button onClick={handleLogout} className={styles.btnLogout}>
               <LogoutIcon fontSize="small" /> Sair
             </button>

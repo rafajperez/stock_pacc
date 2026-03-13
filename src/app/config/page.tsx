@@ -1,45 +1,36 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { fecharMesHistorico } from "@/lib/funcoesEstoque";
-import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import styles from "./config.module.scss";
 import Link from "next/link";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SettingsIcon from "@mui/icons-material/Settings";
-import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import BackupIcon from "@mui/icons-material/Backup";
-
+import HistoryIcon from "@mui/icons-material/History";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import SettingsIcon from "@mui/icons-material/Settings";
+import {
+  fecharMesHistorico,
+  exportarEstoqueParaCSV,
+} from "@/lib/funcoesEstoque";
 export default function ConfigPage() {
+  const [activeTab, setActiveTab] = useState("historico"); // Controle das abas
   const { user, loading } = useAuth();
   const [historico, setHistorico] = useState([]);
-  const [estoqueAtual, setEstoqueAtual] = useState([]);
 
   useEffect(() => {
     if (!user) return;
-
-    // Monitora histórico para o card de fechamento
-    const qH = query(collection(db, "historico_saidas"));
-    const unsubH = onSnapshot(qH, (snap) => {
-      setHistorico(snap.docs.map((doc) => doc.data()) as any);
+    const q = query(collection(db, "historico_saidas"));
+    return onSnapshot(q, (snap) => {
+      setHistorico(
+        snap.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as any,
+      );
     });
-
-    // Monitora estoque para o card de backup
-    const qE = query(collection(db, "estoque"));
-    const unsubE = onSnapshot(qE, (snap) => {
-      setEstoqueAtual(snap.docs.map((doc) => doc.data()) as any);
-    });
-
-    return () => {
-      unsubH();
-      unsubE();
-    };
   }, [user]);
 
-  if (loading) return <div className={styles.loading}>Carregando...</div>;
+  if (loading) return <div>Carregando...</div>;
 
   return (
     <div className={styles.pageWrapper}>
@@ -53,60 +44,47 @@ export default function ConfigPage() {
           </h1>
         </header>
 
-        <div className={styles.grid}>
-          {/* CARD 1: FECHAMENTO MENSAL */}
-          <section className={styles.card}>
-            <div className={styles.cardIcon} style={{ color: "#e65100" }}>
-              <HistoryToggleOffIcon fontSize="large" />
-            </div>
-            <h2>Fechamento Mensal</h2>
-            <p>
-              Arquiva saídas e limpa o histórico atual. O saldo do estoque não
-              será alterado.
-            </p>
-            <div className={styles.status}>
-              <strong>Itens para arquivar:</strong> {historico.length}
-            </div>
-            <button
-              onClick={() => fecharMesHistorico(historico)}
-              className={styles.btnAcao}
-            >
-              Executar Fechamento
-            </button>
-          </section>
+        <nav className={styles.tabs}>
+          <button
+            className={activeTab === "historico" ? styles.active : ""}
+            onClick={() => setActiveTab("historico")}
+          >
+            <HistoryIcon /> Histórico de Saídas
+          </button>
+          <button
+            className={activeTab === "graficos" ? styles.active : ""}
+            onClick={() => setActiveTab("graficos")}
+          >
+            <BarChartIcon /> Gráficos
+          </button>
+          <button
+            className={activeTab === "fechamento" ? styles.active : ""}
+            onClick={() => setActiveTab("fechamento")}
+          >
+            <AssessmentIcon /> Fechamento de Mês
+          </button>
+        </nav>
+        <div className={styles.tabContent}>
+          {activeTab === "historico" && (
+            <section>
+              <h2>Histórico Mensal</h2>
+              <p>Lista de todas as saídas registradas neste período.</p>
+            </section>
+          )}
 
-          {/* CARD 2: BACKUP DE SEGURANÇA */}
-          <section className={styles.card}>
-            <div className={styles.cardIcon} style={{ color: "#004a99" }}>
-              <BackupIcon fontSize="large" />
-            </div>
-            <h2>Backup de Segurança</h2>
-            <p>
-              Baixe uma planilha Excel (.csv) com todo o seu estoque atual agora
-              mesmo.
-            </p>
-            <button
-              onClick={() => exportarEstoqueParaCSV(estoqueAtual)}
-              className={styles.btnBackup}
-            >
-              Baixar CSV
-            </button>
-          </section>
+          {activeTab === "graficos" && (
+            <section>
+              <h2>Análise de Dados</h2>
+              <p>Visualização das doações e movimentações.</p>
+            </section>
+          )}
 
-          {/* CARD 3: RELATÓRIOS ANTIGOS */}
-          <section className={styles.card}>
-            <div className={styles.cardIcon} style={{ color: "#64748b" }}>
-              <AssessmentIcon fontSize="large" />
-            </div>
-            <h2>Arquivos Mortos</h2>
-            <p>
-              Acesse a base de dados de meses anteriores que já foram
-              processados.
-            </p>
-            <Link href="/relatorios" className={styles.btnLink}>
-              Ver Relatórios
-            </Link>
-          </section>
+          {activeTab === "fechamento" && (
+            <section>
+              <h2>Área de Fechamento</h2>
+              <p>Ações irreversíveis e exportação de dados.</p>
+            </section>
+          )}
         </div>
       </main>
     </div>

@@ -100,24 +100,46 @@
       opacity: 0.9;
     }
   }
+  .btnConfig {
+    display: flex !important;
+    color: $pacc-white !important;
+    text-decoration: none;
 
-  .btnLogout {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: $pacc-white;
-    color: $pacc-blue-main;
-    border: 1px solid transparent; // Mudei para transparent para ficar mais limpo
-    padding: 8px 16px;
-    border-radius: 10px;
-    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition:
+      transform $transition,
+      color $transition;
+
+    svg {
+      color: inherit !important;
+      fill: currentColor;
+    }
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-      transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transform: rotate(45deg);
+      transition: transform 0.2s;
     }
+  }
+}
+
+.btnLogout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: $pacc-white;
+  color: $pacc-blue-main;
+  border: 1px solid transparent; // Mudei para transparent para ficar mais limpo
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
