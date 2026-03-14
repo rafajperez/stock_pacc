@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../styles/variables" as *;
 
 .pageWrapper {
@@ -27,11 +28,30 @@
     color: $pacc-blue-main;
     margin: 0;
     line-height: 1;
-
     svg {
       color: $pacc-blue-main;
       font-size: 1.8rem;
     }
+  }
+}
+.cardAcao {
+  background: $pacc-blue-main;
+  color: $pacc-white;
+  padding: 30px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  h4 {
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 10px;
   }
 }
 
@@ -46,10 +66,10 @@
   border-radius: 8px;
   background-color: $pacc-btn-gray;
   transition: all 0.2s ease;
-  border: 1px solid transparent;
+  border: 1px solid $pacc-blue-main;
 
   &:hover {
-    background-color: darken($pacc-btn-gray, 5%);
+    background-color: $pacc-btn-gray;
     color: $pacc-blue-main;
     border-color: rgba($pacc-blue-main, 0.2);
   }
@@ -72,17 +92,138 @@
     cursor: pointer;
     color: $pacc-gray;
     font-weight: 600;
-    transition: all $transition;
-    border-radius: $border-radius $border-radius 0 0;
+    transition: all 0.2s ease;
+    border-radius: 8px 8px 0 0;
 
     &.active {
       color: $pacc-blue-main;
       border-bottom: 3px solid $pacc-blue-main;
-      // Removi o background $pacc-tr se for apenas transparente para não conflitar
     }
 
     &:hover:not(.active) {
       background: $pacc-btn-gray;
     }
   }
+}
+
+.sectionHistorico {
+  animation: fadeIn 0.3s ease; // Um efeitinho de entrada fica profissional
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .badge {
+    background: $pacc-blue-main;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+}
+
+.tabelaContainer {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background-color: #f8f9fa;
+    color: $pacc-blue-main;
+    padding: 15px;
+    text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid #eee;
+  }
+
+  td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    color: #444;
+  }
+
+  tr:hover {
+    background-color: #fcfcfc;
+  }
+
+  .nomeItem {
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 40px !important;
+  color: #999;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.cardAviso {
+  h3 {
+    display: flex;
+    justify-content: center;
+    color: $pacc-blue-main;
+    font-weight: bolder;
+    margin-bottom: 10px;
+  }
+  p {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: $pacc-blue-main;
+    font-weight: bolder;
+  }
+}
+.btnExportar {
+  width: 180px;
+  height: 32px;
+  color: $pacc-blue-main;
+  font-weight: bold;
+  border-radius: 5px;
+  border: #999;
+  cursor: pointer;
+}
+.btnExportar:hover {
+  background-color: $pacc-btn-hv;
+  color: $pacc-white;
+  border: 1px solid $pacc-white;
+}
+
+.btnDanger {
+  width: 180px;
+  height: 32px;
+  color: $pacc-blue-main;
+  font-weight: bold;
+  border-radius: 5px;
+  border: #999;
+  cursor: pointer;
+}
+.btnDanger:hover {
+  background-color: $pacc-btn-hv;
+  color: $pacc-white;
+  border: 1px solid $pacc-white;
 }

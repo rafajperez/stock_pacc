@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import ListaEstoque from "@/components/ListaEstoque";
-import ModalCadastro from "@/components/ModalCadastro";
-import ModalSaida from "@/components/ModalSaida";
+import ListaEstoque from "@/components/ListaEstoque/ListaEstoque";
+import ModalCadastro from "@/components/ModalCadastro/ModalCadastro";
+import ModalSaida from "@/components/ModalSaida/ModalSaida";
 import styles from "./estoque.module.scss";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
-// ÍCONES DO MATERIAL UI
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import LogoutIcon from "@mui/icons-material/Logout";

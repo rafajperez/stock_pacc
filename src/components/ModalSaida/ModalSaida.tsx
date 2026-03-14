@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { ItemEstoque } from "@/types/Estoque";
 import styles from "./ModalSaida.module.scss";
-import toast from "react-hot-toast"; // Importando o toast
+import toast from "react-hot-toast";
 
 interface ModalProps {
   isOpen: boolean;
@@ -35,7 +35,6 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
         id: doc.id,
         ...doc.data(),
       })) as ItemEstoque[];
-      // Filtra apenas o que tem estoque para não poluir o select
       setItensNoEstoque(dados.filter((item) => item.quantidade > 0));
     });
     return () => unsubscribe();
@@ -50,7 +49,7 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
     const itemSelecionado = itensNoEstoque.find((i) => i.id === itemId);
 
     if (!itemSelecionado || itemSelecionado.quantidade < quantidadeSaida) {
-      toast.error("Quantidade insuficiente no estoque!"); // Toast em vez de alert
+      toast.error("Quantidade insuficiente no estoque!");
       setLoading(false);
       return;
     }
@@ -58,12 +57,10 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
     try {
       const itemRef = doc(db, "estoque", itemId);
 
-      // Atualiza o estoque subtraindo
       await updateDoc(itemRef, {
         quantidade: increment(-Number(quantidadeSaida)),
       });
 
-      // Registra no histórico para auditoria da PACC
       await addDoc(collection(db, "historico_saidas"), {
         pacienteReferencia: pacienteId,
         itemNome: itemSelecionado.nome,
@@ -71,9 +68,9 @@ export default function ModalSaida({ isOpen, onClose }: ModalProps) {
         dataSaida: serverTimestamp(),
       });
 
-      toast.success("Baixa realizada com sucesso!"); // Toast de sucesso
+      toast.success("Baixa realizada com sucesso!");
       setPacienteId("");
-      setItemId(""); // Limpa o item selecionado
+      setItemId("");
       onClose();
     } catch (error) {
       console.error(error);

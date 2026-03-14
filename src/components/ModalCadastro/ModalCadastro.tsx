@@ -33,7 +33,7 @@ const TAMANHOS_FRALDA = ["P", "M", "G", "GG", "EG/XG"];
 
 export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
   const [nomeBase, setNomeBase] = useState(ITENS_PADRAO[0]);
-  const [tamanhoFralda, setTamanhoFralda] = useState(TAMANHOS_FRALDA[1]); // Padrão M
+  const [tamanhoFralda, setTamanhoFralda] = useState(TAMANHOS_FRALDA[1]);
   const [nomePersonalizado, setNomePersonalizado] = useState("");
   const [quantidade, setQuantidade] = useState(1);
   const [categoria, setCategoria] = useState("Cesta Básica");
@@ -83,8 +83,6 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
           quantidade: increment(Number(quantidade)),
           dataAtualizacao: serverTimestamp(),
         });
-
-        // TROCADO ALERT POR TOAST
         toast.success("Quantidade somada ao lote existente!");
       } else {
         await addDoc(collection(db, "estoque"), {
@@ -95,11 +93,9 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
           dataCriacao: serverTimestamp(),
         });
 
-        // TROCADO ALERT POR TOAST
         toast.success("Novo item cadastrado com sucesso!");
       }
 
-      // Reseta os estados
       setNomeBase(ITENS_PADRAO[0]);
       setNomePersonalizado("");
       setQuantidade(1);
@@ -107,7 +103,6 @@ export default function ModalCadastro({ isOpen, onClose }: ModalProps) {
       onClose();
     } catch (error) {
       console.error(error);
-      // TROCADO ALERT POR TOAST
       toast.error("Erro ao salvar no banco de dados.");
     } finally {
       setLoading(false);

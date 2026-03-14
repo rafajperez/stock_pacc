@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   sassOptions: {
-    // Isso permite que o Sass procure arquivos na pasta styles automaticamente
-    includePaths: ["./src/styles"],
+    includePaths: [path.join(__dirname, "src")],
   },
   reactCompiler: true,
 };
